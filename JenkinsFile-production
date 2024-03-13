@@ -9,7 +9,7 @@ pipeline{
 
     stage('Logs'){
       steps{
-        echo 'Building anotherJob and getting the log'
+        echo 'Day la log'
       }
     }
   }
