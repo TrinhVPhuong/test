@@ -6,5 +6,11 @@ pipeline{
         git 'https://github.com/TrinhVPhuong/dash-board.git'
       }
     }
+
+    stage('Logs'){
+      steps{
+        echo 'Building anotherJob and getting the log'
+      }
+    }
   }
 }
