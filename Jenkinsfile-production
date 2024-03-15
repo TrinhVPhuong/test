@@ -1,9 +1,11 @@
-node{
-  stage('Checkout Code'){
-    git 'https://github.com/TrinhVPhuong/dash-board.git'
-  }
-
-  stage('Log'){
-    echo 'Build Success'
-  }
+node {
+    stage('Checkout Code') {
+        git 'https://github.com/TrinhVPhuong/dash-board.git'
+    }
+    stage('Log') {
+        withDockerRegistry(credentialsId: 'bongao-hub', url: 'https://index.docker.io/v1/') {
+            sh 'docker build -t tvphuong/dashboard-webapp-production:v1 .'
+            sh 'docker push -t tvphuong/dashboard-webapp-production:v1 .'
+        }
+    }
 }
