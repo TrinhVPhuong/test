@@ -1,16 +1,9 @@
-pipeline{
-  agent any
-  stages{
-    stage('Clone'){
-      steps{
-        git 'https://github.com/TrinhVPhuong/dash-board.git'
-      }
-    }
+node{
+  stage('Checkout Code'){
+    git 'https://github.com/TrinhVPhuong/dash-board.git'
+  }
 
-    stage('Logs'){
-      steps{
-        echo 'Day la log'
-      }
-    }
+  stage('Log'){
+    echo 'Build Success'
   }
 }
