@@ -8,7 +8,7 @@ node {
     }
 
     stage('Build Image') {
-        withDockerRegistry(credentialsId: 'bongao-hub', url: 'https://registry.hub.docker.com/v2/') {
+        withDockerRegistry(url: 'https://registry.hub.docker.com/v2/') {
             sh 'docker build -t tvphuong/dashboard-webapp-production:v1 .'
             sh 'docker push -t tvphuong/dashboard-webapp-production:v1 .'
         }
