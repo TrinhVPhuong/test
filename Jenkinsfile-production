@@ -22,7 +22,7 @@ pipeline {
             steps {
                 withDockerRegistry(credentialsId: 'bongao-hub', url: 'https://registry.hub.docker.com/v2/') {
                     sh 'docker build -t ${imageName}:${BUILD_NUMBER} .'
-                    sh 'docker push -t ${imageName}:${BUILD_NUMBER} .'
+                    sh 'docker push ${imageName}:${BUILD_NUMBER} .'
                 }
             }
         }
