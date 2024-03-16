@@ -1,20 +1,24 @@
-node {
+pipline {
+    agent any
+    
     environment {
         imageName = 'tvphuong/dashboard-webapp-production'
     }
 
-    stage('Checkout SCM') {
-        checkout scm
-    }
+    stages {
+        stage('Checkout SCM') {
+            checkout scm
+        }
 
-    stage('Checkout Code') {
-        git 'https://github.com/TrinhVPhuong/dash-board.git'
-    }
+        stage('Checkout Code') {
+            git 'https://github.com/TrinhVPhuong/dash-board.git'
+        }
 
-    stage('Build Image') {
-        withDockerRegistry(credentialsId: 'bongao-hub', url: 'https://registry.hub.docker.com/v2/') {
-            sh 'docker build -t ${imageName}:${BUILD_NUMBER}'
-            sh 'docker push -t ${imageName}:${BUILD_NUMBER}'
+        stage('Build Image') {
+            withDockerRegistry(credentialsId: 'bongao-hub', url: 'https://registry.hub.docker.com/v2/') {
+                sh 'docker build -t ${imageName}:${BUILD_NUMBER}'
+                sh 'docker push -t ${imageName}:${BUILD_NUMBER}'
+            }
         }
     }
 }
