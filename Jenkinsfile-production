@@ -1,9 +1,5 @@
 pipeline {
-    agent {
-        docker {
-            args '-u root /tmp:/root/.cache'
-        }
-    }
+    agent any
 
     environment {
         imageName = 'tvphuong/dashboard-webapp-production'
