@@ -7,17 +7,23 @@ pipeline {
 
     stages {
         stage('Checkout SCM') {
-            checkout scm
+            steps {
+                checkout scm
+            }
         }
 
         stage('Checkout Code') {
-            git 'https://github.com/TrinhVPhuong/dash-board.git'
+            steps {
+                git 'https://github.com/TrinhVPhuong/dash-board.git'
+            }
         }
 
         stage('Build Image') {
-            withDockerRegistry(credentialsId: 'bongao-hub', url: 'https://registry.hub.docker.com/v2/') {
-                sh 'docker build -t ${imageName}:${BUILD_NUMBER}'
-                sh 'docker push -t ${imageName}:${BUILD_NUMBER}'
+            steps {
+                withDockerRegistry(credentialsId: 'bongao-hub', url: 'https://registry.hub.docker.com/v2/') {
+                    sh 'docker build -t ${imageName}:${BUILD_NUMBER}'
+                    sh 'docker push -t ${imageName}:${BUILD_NUMBER}'
+                }
             }
         }
     }
