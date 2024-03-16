@@ -1,4 +1,8 @@
 node {
+    environment {
+        imageName = 'tvphuong/dashboard-webapp-production'
+    }
+
     stage('Checkout SCM') {
         checkout scm
     }
@@ -8,9 +12,9 @@ node {
     }
 
     stage('Build Image') {
-        withDockerRegistry(url: 'https://registry.hub.docker.com/v2/') {
-            sh 'docker build -t tvphuong/dashboard-webapp-production:v1 .'
-            sh 'docker push -t tvphuong/dashboard-webapp-production:v1 .'
+        withDockerRegistry(credentialsId: 'bongao-hub', url: 'https://registry.hub.docker.com/v2/') {
+            sh 'docker build -t ${imageName}:${BUILD_NUMBER}'
+            sh 'docker push -t ${imageName}:${BUILD_NUMBER}'
         }
     }
 }
