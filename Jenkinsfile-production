@@ -20,7 +20,7 @@ pipeline {
 
         stage('Build Image') {
             steps {
-                withCredentials([userNamePassword(credentialsId: 'bongao-hub', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                withCredentials([usernamePassword(credentialsId: 'bongao-hub', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
                     sh 'docker login --username $DOCKER_USERNAME --password-stdin'
                     sh 'docker build -t ${imageName}:${BUILD_NUMBER} .'
                     sh 'docker push ${imageName}:${BUILD_NUMBER}'
