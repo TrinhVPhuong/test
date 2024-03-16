@@ -1,6 +1,6 @@
-pipline {
+pipeline {
     agent any
-    
+
     environment {
         imageName = 'tvphuong/dashboard-webapp-production'
     }
