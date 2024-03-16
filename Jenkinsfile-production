@@ -30,7 +30,7 @@ pipeline {
 
         stage('Clean Image') {
             steps {
-                sh 'docker image prune ${imageName}:${BUILD_NUMBER}'
+                sh 'docker image prune ${imageName}'
             }
         }
     }
