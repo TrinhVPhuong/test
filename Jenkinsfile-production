@@ -6,7 +6,7 @@ node {
     }
 
     stage("Build Image") {
-        dockerImage = docker.build("--rm=true","${imageName}:${env.BUILD_NUMBER}")
+        dockerImage = docker.build("${imageName}:${env.BUILD_NUMBER}", "--rm .")
     }
 
     stage("Push Image") {
