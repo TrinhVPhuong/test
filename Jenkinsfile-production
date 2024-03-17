@@ -6,7 +6,7 @@ node {
     }
 
     stage("Build Image") {
-        dockerImage = docker.build("${imageName}:${env.BUILD_NUMBER}", "--rm .")
+        dockerImage = docker.build("${imageName}:${env.BUILD_NUMBER}", "--force-rm=true .")
     }
 
     stage("Push Image") {
@@ -17,6 +17,6 @@ node {
     }
 
     stage('Cleaning up') {
-        sh "docker image prune"
+        sh "docker image prune -f"
     }
 }
