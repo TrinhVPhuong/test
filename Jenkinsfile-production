@@ -6,7 +6,8 @@ node {
     }
 
     stage("Build Image") {
-        dockerImage = docker.build("${imageName}:${env.BUILD_NUMBER}")
+        dockerImage = docker.build("${imageName}:${env.BUILD_NUMBER}, ${imageName}:latest")
+        dockerImage.tag()
     }
 
     stage("Push Image") {
