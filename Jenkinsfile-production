@@ -40,13 +40,11 @@ node {
     def imageName = "tvphuong/dashboard-webapp-production"
 
     stage("Checkout SCM") {
-        steps {
-            checkout scm
-        }
+        checkout scm
     }
 
     stage("Checkout Code") {
-       git "https://github.com/TrinhVPhuong/dash-board.git"
+        git "https://github.com/TrinhVPhuong/dash-board.git"
     }
 
     stage("Build Image") {
