@@ -7,12 +7,12 @@ node {
 
     stage("Build Image") {
         dockerImage = docker.build("${imageName}")
-        dockerImage.tag(["${env.BUILD_NUMBER}", "latest"])
     }
 
     stage("Push Image") {
         docker.withRegistry("https://index.docker.io/v1/", "bongao-hub-credentials") {
-            dockerImage.push()
+            dockerImage.push("${env.BUILD_NUMBER}")
+            dockerImage.push("latest")
         }
     }
 
