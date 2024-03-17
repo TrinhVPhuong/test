@@ -9,6 +9,7 @@ COPY package*.json ./
 
 # Install dependencies
 RUN npm install --production
+RUN npm install vite --save-dev
 
 # Copy the rest of the project files
 COPY . .
