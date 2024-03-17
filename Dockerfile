@@ -1,25 +1,26 @@
-# it's a good idea to pin this, but for demo purposes we'll leave it as is
-FROM node:latest as builder
+# Use a minimal base image
+FROM node:alpine AS builder
 
-# automatically creates the dir and sets it as the current working dir
-WORKDIR /usr/src/app
-# this will allow us to run vite and other tools directly
-ENV PATH /usr/src/node_modules/.bin:$PATH
+# Set working directory
+WORKDIR /app
 
-# inject all environment vars we'll need
-ARG VITE_BACKEND_URL
-# expose the variable to the finished cotainer
-ENV VITE_BACKEND_URL=$VITE_BACKEND_URL
+# Copy package.json and package-lock.json (or yarn.lock)
+COPY package*.json ./
 
-COPY package.json ./
+# Install dependencies
+RUN npm install --production
 
-RUN npm install
+# Copy the rest of the project files
+COPY . .
 
-# use a more specific COPY, as this will include files like `Dockerfile`, we don't really need inside our containers.
-COPY . ./
+# Use a smaller image for serving
+FROM nginx:alpine
 
-FROM builder as dev
-CMD ["npm", "run", "dev"]
+# Copy the built Vue app from the builder stage
+COPY --from=builder /app/dist /usr/share/nginx/html
 
-FROM builder as prod-builder
-RUN npm run build
+# Expose the port (default for Vue apps is 8080)
+EXPOSE 3000
+
+# Configure the default server block
+CMD ["nginx", "-g", "daemon off;"]
