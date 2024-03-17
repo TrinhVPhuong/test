@@ -1,17 +1,17 @@
 node {
     def imageName = "tvphuong/dashboard-webapp-production"
-
+    def dockerImage
     stage("Checkout SCM") {
         checkout scm
     }
 
     stage("Build Image") {
-        sh "docker build -t ${imageName}:${env.BUILD_NUMBER} ."  // Build image using docker command
+        dockerImage = docker.build("${imageName}:${env.BUILD_NUMBER}")
     }
 
     stage("Push Image") {
         docker.withRegistry("https://index.docker.io/v1/", "bongao-hub-credentials") {
-            image.push()
+            dockerImage.push()
         }
     }
 
