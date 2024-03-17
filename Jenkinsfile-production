@@ -17,6 +17,6 @@ node {
     }
 
     stage('Cleaning up') {
-        sh "docker rmi $(docker images $imageName)"
+        sh "docker rmi \$(docker images $imageName)"
     }
 }
