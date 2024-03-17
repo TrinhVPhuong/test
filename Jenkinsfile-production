@@ -18,5 +18,6 @@ node {
 
     stage('Cleaning up') {
         sh "docker rmi $imageName:$env.BUILD_NUMBER"
+        sh "docker rmi $imageName:latest"
     }
 }
