@@ -13,6 +13,9 @@ RUN npm install --production
 # Copy the rest of the project files
 COPY . .
 
+# Build the Vue app (adjust command based on your setup)
+RUN npm run build
+
 # Use a smaller image for serving
 FROM nginx:alpine
 
