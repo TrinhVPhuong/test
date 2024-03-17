@@ -3,7 +3,7 @@ import HelloWorld from './components/HelloWorld.vue'
 </script>
 
 <template>
-  Production test update test
+  Production test update test 2
 </template>
 
 <style scoped>
