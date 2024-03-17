@@ -1,14 +1,12 @@
 node {
-    def image
     def imageName = "tvphuong/dashboard-webapp-production"
 
     stage("Checkout SCM") {
-        // Use checkout scm only once for consistency
         checkout scm
     }
 
     stage("Build Image") {
-        image = docker.build("${imageName}:${env.BUILD_NUMBER}")
+        sh "docker build -t ${imageName}:${env.BUILD_NUMBER} ."  // Build image using docker command
     }
 
     stage("Push Image") {
