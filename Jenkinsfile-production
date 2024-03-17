@@ -11,14 +11,17 @@ node {
     }
 
     stage("Build Image") {
-        image = docker.build("${imageName}")
+        image = docker.build("${imageName}:${env.BUILD_NUMBER}")
     }
 
     stage("Push image") {
         /* Push image using withRegistry. */
         docker.withRegistry("https://index.docker.io/v1/", "bongao-hub") {
-            app.push("${env.BUILD_NUMBER}")
-            app.push("latest")
+            image.push()
         }
+    }
+
+    stage('Cleaning up') {
+        sh "docker rmi $imageName:$env.BUILD_NUMBER"
     }
 }
